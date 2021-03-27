@@ -25,7 +25,7 @@ public class DropDownDemo {
     System.setProperty("webdriver.chrome.driver","C:\\DEV\\selenium_drivers\\chromedriver.exe");
     driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-        driver.get("http://shop.pragmatic.bg/admin/index.php?route=sale/order&user_token=PXuZYAAfrNV3UjRm5w09KDf6eCIEjbQX");
+        driver.get("http://shop.pragmatic.bg/admin/");
     }
 
     @Test
@@ -42,7 +42,15 @@ public class DropDownDemo {
         WebElement pressLogin = driver.findElement(By.xpath("//button[@type='submit']"));
         pressLogin.click();
 
+        WebElement salesMenu = driver.findElement(By.cssSelector("#menu-sale > a"));
+        salesMenu.click();
+
+        WebElement menuOrder = driver.findElement(By.cssSelector("#collapse4 > li:nth-of-type(1)"));
+        menuOrder.click();
+
         WebElement dropDown = driver.findElement(By.id("input-order-status"));
+        dropDown.click();
+
         Select orderStatus = new Select(dropDown);
 
         assertFalse(orderStatus.isMultiple());
@@ -66,7 +74,7 @@ public class DropDownDemo {
                 "Reversed",
                 "Shipped",
                 "Voided"});
-        List<String> actualOrders = new ArrayList<String>();
+        List<String> actualOrders = new ArrayList<>();
 
         List<WebElement> allOrders = orderStatus.getOptions();
 
