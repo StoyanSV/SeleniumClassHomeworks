@@ -77,5 +77,6 @@ public class GuestOrder {
 
     @AfterMethod
     public void tearDown() {
+        this.driver.quit();
     }
 }

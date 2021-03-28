@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -23,7 +25,8 @@ public class DropDownDemo {
             public void setUp() {
 
     System.setProperty("webdriver.chrome.driver","C:\\DEV\\selenium_drivers\\chromedriver.exe");
-    driver = new ChromeDriver();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
         driver.get("http://shop.pragmatic.bg/admin/");
     }
@@ -82,5 +85,23 @@ public class DropDownDemo {
             actualOrders.add(option.getText());
         }
         assertEquals(actualOrders, expectedOrders);
+
+        driver.get("http://pragmatic.bg/automation/lecture13/Config.html");
+
+        WebElement airBags = driver.findElement(By.xpath("//input[@value='Airbags']"));
+        WebElement parkingSensor = driver.findElement(By.xpath("//input[@name='parksensor']"));
+
+        Actions builder = new Actions(driver);
+        builder.click(airBags).click(parkingSensor).perform();
+
+        assertTrue(airBags.isSelected());
+        assertTrue(parkingSensor.isSelected());
+
     }
+
+    @AfterMethod
+    public void tearDown() {
+        this.driver.quit();
+    }
+
 }
