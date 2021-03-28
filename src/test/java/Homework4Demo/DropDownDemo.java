@@ -28,13 +28,13 @@ public class DropDownDemo {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-        driver.get("http://shop.pragmatic.bg/admin/");
+//        driver.get("http://shop.pragmatic.bg/admin/");
     }
 
     @Test
 
     public void testDropdown() {
-
+        driver.get("http://shop.pragmatic.bg/admin/");
 
         WebElement userInput = driver.findElement(By.id("input-username"));
         userInput.sendKeys("admin");
@@ -52,7 +52,7 @@ public class DropDownDemo {
         menuOrder.click();
 
         WebElement dropDown = driver.findElement(By.id("input-order-status"));
-        dropDown.click();
+        //dropDown.click();
 
         Select orderStatus = new Select(dropDown);
 
@@ -86,6 +86,12 @@ public class DropDownDemo {
         }
         assertEquals(actualOrders, expectedOrders);
 
+
+
+    }
+
+    @Test
+    public void checkboxTest(){
         driver.get("http://pragmatic.bg/automation/lecture13/Config.html");
 
         WebElement airBags = driver.findElement(By.xpath("//input[@value='Airbags']"));
@@ -96,7 +102,6 @@ public class DropDownDemo {
 
         assertTrue(airBags.isSelected());
         assertTrue(parkingSensor.isSelected());
-
     }
 
     @AfterMethod

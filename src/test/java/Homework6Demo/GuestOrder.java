@@ -60,12 +60,14 @@ public class GuestOrder {
         Select regionDropDown = new Select(this.driver.findElement(By.id("input-payment-zone")));
         regionDropDown.selectByValue("496");
         this.driver.findElement(By.id("button-guest")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("button-shipping-method")));
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("button-shipping-method")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[@name='comment']")));
         WebElement fillField = this.driver.findElement(By.xpath("//textarea[@name='comment']"));
         fillField.click();
         fillField.sendKeys("I'm at home after 17.30 pm.");
         this.driver.findElement(By.id("button-shipping-method")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("button-payment-method")));
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("button-payment-method")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='agree']")));
         this.driver.findElement(By.xpath("//input[@name='agree']")).click();
         this.driver.findElement(By.id("button-payment-method")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("button-confirm")));
@@ -73,6 +75,7 @@ public class GuestOrder {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#content > p:nth-of-type(1)")));
 
         Assert.assertEquals(this.driver.findElement(By.cssSelector("#content > h1")).getText(), "Your order has been placed!");
+//        Assert.assertEquals(this.driver.findElement(By.cssSelector("#content > p:nth-of-type(1)")).getText(), "Your order has been successfully processed!");
     }
 
     @AfterMethod
