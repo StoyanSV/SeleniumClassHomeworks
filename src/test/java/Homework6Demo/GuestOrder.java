@@ -60,20 +60,19 @@ public class GuestOrder {
         Select regionDropDown = new Select(this.driver.findElement(By.id("input-payment-zone")));
         regionDropDown.selectByValue("496");
         this.driver.findElement(By.id("button-guest")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".panel-body > p:nth-of-type(4) > .form-control")));
-        WebElement field = this.driver.findElement(By.cssSelector(".panel-body > p:nth-of-type(4) > .form-control"));
-        field.click();
-        field.sendKeys("text, explaining that the door of my house is on the opposite site of the building");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("button-shipping-method")));
+        WebElement fillField = this.driver.findElement(By.xpath("//textarea[@name='comment']"));
+        fillField.click();
+        fillField.sendKeys("I'm at home after 17.30 pm.");
         this.driver.findElement(By.id("button-shipping-method")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='agree']")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("button-payment-method")));
         this.driver.findElement(By.xpath("//input[@name='agree']")).click();
-        this.driver.findElement(By.cssSelector("#button-payment-method")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".table >tfoot>tr:nth-of-type(3)>td:nth-of-type(2)")));
-        this.driver.findElement(By.cssSelector(".table >tfoot>tr:nth-of-type(3)>td:nth-of-type(2)"));
+        this.driver.findElement(By.id("button-payment-method")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("button-confirm")));
         this.driver.findElement(By.id("button-confirm")).click();
-        // System.out.printf(this.driver.findElement(By.cssSelector("#content >h1")).getAttribute();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#content > p:nth-of-type(1)")));
-        Assert.assertEquals(this.driver.findElement(By.cssSelector("#content > p:nth-of-type(1)")).getText(),"Your order has been successfully processed!");
+
+        Assert.assertEquals(this.driver.findElement(By.cssSelector("#content > h1")).getText(), "Your order has been placed!");
     }
 
     @AfterMethod
